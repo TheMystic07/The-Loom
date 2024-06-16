@@ -1,0 +1,3 @@
+postcss.config.js filter=lfs diff=lfs merge=lfs -text
+tailwin.config.js filter=lfs diff=lfs merge=lfs -text
+tailwind.config.js filter=lfs diff=lfs merge=lfs -text

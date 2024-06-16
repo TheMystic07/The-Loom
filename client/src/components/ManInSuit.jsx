@@ -6,7 +6,7 @@ Command: npx gltfjsx@6.2.18 .\public\models\Man in Suit.glb -o ./src/Components/
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { log } from 'three/examples/jsm/nodes/Nodes.js'
-import { useGraph } from '@react-three/fiber'
+import { useFrame, useGraph } from '@react-three/fiber'
 import { SkeletonUtils } from 'three-stdlib'
 
 export function ManInSuit({
@@ -16,6 +16,9 @@ export function ManInSuit({
   pantsColor = 'black',
   ...props
 }) {
+
+  const position = useMemo(()=> props.position ,[])
+
   const group = useRef()
   const { scene, materials, animations } = useGLTF('/models/Man in Suit.glb')
 
@@ -24,16 +27,26 @@ export function ManInSuit({
 
 
   const { actions } = useAnimations(animations, group)
-  const [animation , setAnimation] =  useState('HumanArmature|Man_Run');
+  const [animation , setAnimation] =  useState('HumanArmature|Man_Idle');
 
   useEffect(() => {
     actions[animation].reset().fadeIn(0.5) .play()
-    return () => actions[animation].fadeOut(0.5)
+    return () => actions[animation]?.fadeOut(0.5)
   } , [animation])
-
-  console.log(actions);
+const MOVEMENT_SPEED = 0.32;
+  useFrame(()=>{
+    if(group.current.position.distanceTo(props.position) > 0.1 ){
+      const direction = group.current.position.clone().sub(props.position).normalize().multiplyScalar(MOVEMENT_SPEED);
+      group.current.position.sub(direction) ;
+      group.current. lookAt(props.position);
+      setAnimation("HumanArmature|Man_Run");
+} else {
+      setAnimation("HumanArmature|Man_Idle") ;
+}
+});
+  // console.log(actions);
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} position={position} dispose={null}>
       <group name="Root_Scene">
         <group name="RootNode">
           <group name="HumanArmature" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
