@@ -8,7 +8,8 @@ import {
   monitor,
   unmonitor,
   dryrun,
-  createDataItemSigner
+  createDataItemSigner,
+  connect
 } from "@permaweb/aoconnect";
 import * as THREE from 'three'
 
@@ -18,7 +19,7 @@ import { useEffect, useState } from "react";
 export const Experience = () => {
 
   // const playersAtom = atom([])
-  // const ao = connect();
+  const ao = connect();
 
 
   // const GenerateRandomPostion = () => {
@@ -77,8 +78,8 @@ const getActivePlayers = async () => {
 useEffect(() => {
   setInterval(() => {
     getActivePlayers();
-    console.log("Getting Active Players" , players);
-  }, 2000); 
+    console.log("tick"  );
+  }, 1000); 
 }, []);
 
 
@@ -99,7 +100,7 @@ onPointerEnter={ ()=>{ setOnFloor(true)}}
 onPointerLeave= { () => {setOnFloor(false)}}
 
 >
-    <planeGeometry args={[10, 10]} />
+    <planeGeometry args={[100, 100]} />
     <meshStandardMaterial color="blue" />
 </mesh>
 

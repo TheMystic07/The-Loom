@@ -17,7 +17,7 @@ const Home = () => {
 
 
     const { connected, connect, disconnect } = useConnection();
-    const LoomProcess = "inSyMPJA-dxAQ_E9Mw5wElBi6vZ_tXJ9OfM63Yk0Ods"
+    const LoomProcess = "o8Gd7GjChwo0j8u7zRvI5XYlDFiC9tB5i7OTY5n2SyI"
     const aoSigner = createDataItemSigner(window.arweaveWallet);
 
     const GenerateRandomPostion = () => {
@@ -59,7 +59,7 @@ const Home = () => {
          {connected ? (
           <button >
             <Link to="/loom" >
-              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={loomConnect} >
+              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={()=>loomConnect()} >
               Explore Loom </button>
             </Link>
           </button>
