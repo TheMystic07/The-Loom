@@ -13,6 +13,7 @@ import {
 } from "@permaweb/aoconnect";
 import * as THREE from 'three'
 import { useEffect, useState } from "react";
+import  React from 'react'
 
 export const Experience = () => {
 
@@ -92,7 +93,7 @@ export const Experience = () => {
         const position = new THREE.Vector3(player.position.x, player.position.y, player.position.z);
 
         return (
-          <group key={key} position={position}>
+          <React.Fragment key={key}>
             <ManInSuit 
               position={position} 
               hairColor={player.hairColor} 
@@ -101,8 +102,8 @@ export const Experience = () => {
               pantsColor={player.pantColor} 
             />
             <Text
-              position={[player.position.x, 5, player.position.z]} // Adjusted position to appear above the player
-              fontSize={1}
+              position={[position.x, position.y + 2, position.z]} // Position the text above the player
+              fontSize={0.5}
               color={player.shirtColor}
               anchorX="center"
               anchorY="middle"
@@ -110,7 +111,7 @@ export const Experience = () => {
             >
               {truncate(key, 10)}
             </Text>
-          </group>
+          </React.Fragment>
         );
       })}
     </>
