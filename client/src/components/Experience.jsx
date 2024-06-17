@@ -114,7 +114,7 @@ onPointerLeave= { () => {setOnFloor(false)}}
 
 { Object.keys(players).map((key) => {
         return (
-          <ManInSuit key={key} position={new THREE.Vector3(players[key].position.x, players[key].position.y, players[key].position.z)  } />
+          <ManInSuit key={key} position={new THREE.Vector3(players[key].position.x, players[key].position.y, players[key].position.z) }  hairColor= {players[key].hairColor} skinColor={players[key].skinColor} shirtColor={players[key].shirtColor} pantsColor={players[key].pantColor}    />
           // <div key={key}>
           //   {key}
           //   {players[key].position.x} {players[key].position.y} {players[key].position.z}

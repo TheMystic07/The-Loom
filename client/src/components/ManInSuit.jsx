@@ -33,7 +33,7 @@ export function ManInSuit({
     actions[animation].reset().fadeIn(0.5) .play()
     return () => actions[animation]?.fadeOut(0.5)
   } , [animation])
-const MOVEMENT_SPEED = 0.32;
+const MOVEMENT_SPEED = 0.032;
   useFrame(()=>{
     if(group.current.position.distanceTo(props.position) > 0.1 ){
       const direction = group.current.position.clone().sub(props.position).normalize().multiplyScalar(MOVEMENT_SPEED);
