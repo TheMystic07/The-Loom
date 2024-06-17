@@ -1,4 +1,4 @@
-import { Environment, OrbitControls, useCursor } from "@react-three/drei";
+import { Environment, OrbitControls, useCursor, Text } from "@react-three/drei";
 import { ManInSuit } from "./ManInSuit";
 import {
   result,
@@ -12,36 +12,21 @@ import {
   connect
 } from "@permaweb/aoconnect";
 import * as THREE from 'three'
-
 import { useEffect, useState } from "react";
-// import { useAtom , atom} from 'jotai'
 
 export const Experience = () => {
 
-  // const playersAtom = atom([])
   const ao = connect();
+  const LoomProcess = "o8Gd7GjChwo0j8u7zRvI5XYlDFiC9tB5i7OTY5n2SyI"
+  const [players, setPlayers] = useState([]);
 
-
-  // const GenerateRandomPostion = () => {
-  //   return [Math.random() * 3 ,  0 , Math.random() * 3]
-  // }
-  // const GenerateRandomHexColor = () => {
-  //   return  "#" + Math.floor(Math.random()*16777215).toString(16); // i dont know what  this code means but it  works
-  // }
-const LoomProcess = "o8Gd7GjChwo0j8u7zRvI5XYlDFiC9tB5i7OTY5n2SyI"
-
-// const [_players, setPlayers] = useAtom(playersAtom)
-const [players, setPlayers] = useState([]);
-
-
-const UpdatePlayerPosition = async (position) => {
-  console.log("Updating Player Position", position);
-  let pos = {
-    "x": position.x,
-    "y": position.y,
-    "z": position.z
-  }
-  // pos = JSON.stringify(pos);
+  const UpdatePlayerPosition = async (position) => {
+    console.log("Updating Player Position", position);
+    let pos = {
+      "x": position.x,
+      "y": position.y,
+      "z": position.z
+    }
     await window.arweaveWallet.connect(["ACCESS_ADDRESS", "SIGN_TRANSACTION"]);
     const m_id = await message({
       process: LoomProcess,
@@ -54,75 +39,80 @@ const UpdatePlayerPosition = async (position) => {
       message: m_id,
     });
     console.log(res);
-}
+  }
 
-const getActivePlayers = async () => {
-  const addr = await window.arweaveWallet.getActiveAddress();
-  const res = await dryrun({
-    process: LoomProcess,
-    tags: [
-      {
-        name: "Action",
-        value: "GetActivePlayers",
-      },
-    ],
-  });
-  const { Messages } = res;
-  const tasks = Messages[0].Data;
-  const tasksJson = JSON.parse(tasks);
-  setPlayers(tasksJson);
-  console.log(tasksJson);
-}
+  const getActivePlayers = async () => {
+    const addr = await window.arweaveWallet.getActiveAddress();
+    const res = await dryrun({
+      process: LoomProcess,
+      tags: [
+        {
+          name: "Action",
+          value: "GetActivePlayers",
+        },
+      ],
+    });
+    const { Messages } = res;
+    const tasks = Messages[0].Data;
+    const tasksJson = JSON.parse(tasks);
+    setPlayers(tasksJson);
+    console.log(tasksJson);
+  }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getActivePlayers();
+      console.log("tick");
+    }, 1000); 
+    return () => clearInterval(interval);
+  }, []);
 
-useEffect(() => {
-  setInterval(() => {
-    getActivePlayers();
-    console.log("tick"  );
-  }, 1000); 
-}, []);
+  const [onFloor, setOnFloor] = useState(false);
+  useCursor(onFloor);
 
+  const truncate = (str, maxLength) => {
+    return str.length > maxLength ? str.substring(0, maxLength) + "..." : str;
+  };
 
-const [onFloor, setOnFloor] = useState(false);
-useCursor(onFloor)
-  
-// const players = useAtom(playersAtom)
   return (
     <>
       <Environment preset="city" />
       <ambientLight intensity={0.5} />
       <OrbitControls />
-<mesh position={[0, -0.001, 0]} rotation={[-Math.PI / 2, 0, 0]} onClick={(e)=> {
-  // so i need to add a hander and pass e.point
-  UpdatePlayerPosition(e.point);
-} }
-onPointerEnter={ ()=>{ setOnFloor(true)}}
-onPointerLeave= { () => {setOnFloor(false)}}
+      <mesh position={[0, -0.001, 0]} rotation={[-Math.PI / 2, 0, 0]} 
+        onClick={(e) => UpdatePlayerPosition(e.point)}
+        onPointerEnter={() => setOnFloor(true)}
+        onPointerLeave={() => setOnFloor(false)}>
+        <planeGeometry args={[100, 100]} />
+        <meshStandardMaterial color="blue" />
+      </mesh>
 
->
-    <planeGeometry args={[100, 100]} />
-    <meshStandardMaterial color="blue" />
-</mesh>
+      {Object.keys(players).map((key) => {
+        const player = players[key];
+        const position = new THREE.Vector3(player.position.x, player.position.y, player.position.z);
 
-
-      {/* {players && Object.entries(players).map(([key, player]) => (
-        <ManInSuit 
-          key={key} 
-          position={[player.position.x, player.position.y, player.position.z]} 
-        />
-      ))} */}
-
-{ Object.keys(players).map((key) => {
         return (
-          <ManInSuit key={key} position={new THREE.Vector3(players[key].position.x, players[key].position.y, players[key].position.z) }  hairColor= {players[key].hairColor} skinColor={players[key].skinColor} shirtColor={players[key].shirtColor} pantsColor={players[key].pantColor}    />
-          // <div key={key}>
-          //   {key}
-          //   {players[key].position.x} {players[key].position.y} {players[key].position.z}
-          // </div>
+          <group key={key} position={position}>
+            <ManInSuit 
+              position={position} 
+              hairColor={player.hairColor} 
+              skinColor={player.skinColor} 
+              shirtColor={player.shirtColor} 
+              pantsColor={player.pantColor} 
+            />
+            <Text
+              position={[player.position.x, 5, player.position.z]} // Adjusted position to appear above the player
+              fontSize={1}
+              color={player.shirtColor}
+              anchorX="center"
+              anchorY="middle"
+              frustumCulled={false} // Ensures the text doesn't interact with pointer events
+            >
+              {truncate(key, 10)}
+            </Text>
+          </group>
         );
-}
-      )
-   }
+      })}
     </>
   );
 };
