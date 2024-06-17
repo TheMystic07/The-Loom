@@ -35,8 +35,12 @@ export function ManInSuit({
   } , [animation])
 const MOVEMENT_SPEED = 0.032;
   useFrame(()=>{
-    if(group.current.position.distanceTo(props.position) > 0.1 ){
-      const direction = group.current.position.clone().sub(props.position).normalize().multiplyScalar(MOVEMENT_SPEED);
+    if(group.current.position.distanceTo(props.position) > 0.01 ){
+      const direction = group.current.position
+      .clone()
+      .sub(props.position)
+      .normalize()
+      .multiplyScalar(MOVEMENT_SPEED);
       group.current.position.sub(direction) ;
       group.current. lookAt(props.position);
       setAnimation("HumanArmature|Man_Run");
