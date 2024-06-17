@@ -1,5 +1,6 @@
 import { Environment, OrbitControls, useCursor, Text } from "@react-three/drei";
 import { ManInSuit } from "./ManInSuit";
+import {LoomCity} from './LoomCity'
 import {
   result,
   results,
@@ -78,14 +79,15 @@ export const Experience = () => {
   return (
     <>
       <Environment preset="city" />
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.25} />
       <OrbitControls />
-      <mesh position={[0, -0.001, 0]} rotation={[-Math.PI / 2, 0, 0]} 
+      <mesh position={[0, -0.001, 0]} rotation={[0, 0, 0]} 
         onClick={(e) => UpdatePlayerPosition(e.point)}
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}>
-        <planeGeometry args={[100, 100]} />
-        <meshStandardMaterial color="blue" />
+        {/* <planeGeometry args={[10, 10]} />\ */}
+      <LoomCity />
+        {/* <meshStandardMaterial color="blue" /> */}
       </mesh>
 
       {Object.keys(players).map((key) => {
@@ -102,7 +104,7 @@ export const Experience = () => {
               pantsColor={player.pantColor} 
             />
             <Text
-              position={[position.x, position.y + 2, position.z]} // Position the text above the player
+              position={[position.x, position.y + 5, position.z]} // Position the text above the player
               fontSize={0.5}
               color={player.shirtColor}
               anchorX="center"
