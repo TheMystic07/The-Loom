@@ -42,7 +42,7 @@ function App() {
   return (
     <>
     {/* <button onClick={getActivePlayers}>Get Active Players</button> */}
-    <Canvas shadows camera={{ position: [8,8,8], fov: 30 }}>
+    <Canvas shadows camera={{ position: [8,20,8], fov: 45 }}>
       <ContactShadows blur={2}/>
       <color attach="background" args={["#ececec"]} />
       <Experience />
