@@ -29,7 +29,7 @@ export const Experience = () => {
       "y": position.y,
       "z": position.z
     }
-    await window.arweaveWallet.connect(["ACCESS_ADDRESS", "SIGN_TRANSACTION"]);
+    await window.arweaveWallet.connect(["ACCESS_ADDRESS"  ] );
     const m_id = await message({
       process: LoomProcess,
       signer: createDataItemSigner(window.arweaveWallet),
