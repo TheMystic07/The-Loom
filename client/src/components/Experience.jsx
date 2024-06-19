@@ -96,13 +96,25 @@ export const Experience = () => {
 
         return (
           <React.Fragment key={key}>
-            <ManInSuit 
-              position={position} 
-              hairColor={player.hairColor} 
-              skinColor={player.skinColor} 
-              shirtColor={player.shirtColor} 
-              pantsColor={player.pantColor} 
-            />
+          <ManInSuit 
+            position={position} 
+            hairColor={player.hairColor} 
+            skinColor={player.skinColor} 
+            shirtColor={player.shirtColor} 
+            pantsColor={player.pantColor} 
+          />
+          {key === 'CXJiEEnwnI820BLLJjT0wJJg21sU4bvfvdD6s5i-MoU' ? (
+            <Text
+              position={[position.x, position.y + 5, position.z]} // Position the text above the player
+              fontSize={1} // Larger font size
+              color="gold" // You can set any color you like for emphasis
+              anchorX="center"
+              anchorY="middle"
+              frustumCulled={false} // Ensures the text doesn't interact with pointer events
+            >
+              MYSTIC
+            </Text>
+          ) : (
             <Text
               position={[position.x, position.y + 5, position.z]} // Position the text above the player
               fontSize={0.5}
@@ -113,7 +125,8 @@ export const Experience = () => {
             >
               {truncate(key, 10)}
             </Text>
-          </React.Fragment>
+          )}
+        </React.Fragment>
         );
       })}
     </>
