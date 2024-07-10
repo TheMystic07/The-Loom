@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 export function LoomCity(props) {
   const { nodes, materials } = useGLTF('/models/LoomCity.glb')
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null}  >
       <mesh geometry={nodes.città.geometry} material={materials.multi} />
       <mesh geometry={nodes.Plane.geometry} material={materials.multi} />
       <mesh geometry={nodes.Plane030.geometry} material={materials.multi} />

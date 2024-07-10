@@ -11,7 +11,7 @@ export function Hangar(props) {
   const { nodes, materials, animations } = useGLTF('/models/Hangar.glb')
   const { actions } = useAnimations(animations, group)
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}  scale={20}>
       <group name="Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="24cbae276e214082b4b2a44262456a44fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>

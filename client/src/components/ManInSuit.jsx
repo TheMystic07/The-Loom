@@ -36,7 +36,9 @@ export function ManInSuit({
     return () => actions[animation]?.fadeOut(0.5)
   } , [animation])
 
+// const user = useActiveAddress();
 const user = useActiveAddress();
+
 // console.log("User : "+ user);
 
 
@@ -60,9 +62,9 @@ const MOVEMENT_SPEED = 0.062;
       setAnimation("HumanArmature|Man_Idle") ;
 }
 if(id==user){
- state.camera.position.x = group.current.position.x + 8 ;
- state.camera.position.y = group.current.position.y + 8 ;
- state.camera.position.z = group.current.position.z + 8;
+ state.camera.position.x = group.current.position.x + 18 ;
+ state.camera.position.y = group.current.position.y + 18 ;
+ state.camera.position.z = group.current.position.z + 18;
  state.camera.lookAt(group.current.position); 
 }
   });
@@ -71,10 +73,10 @@ if(id==user){
     <group ref={group} {...props} position={position} dispose={null}>
       <group name="Root_Scene">
         <group name="RootNode">
-          <group name="HumanArmature" rotation={[-Math.PI / 2, 0, 0]} scale={30}>
+          <group name="HumanArmature" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
             <primitive object={nodes.Bone} />
           </group>
-          <group name="BaseHuman" rotation={[-Math.PI / 2, 0, 0]} scale={30}>
+          <group name="BaseHuman" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
             <skinnedMesh name="BaseHuman_1" geometry={nodes.BaseHuman_1.geometry} material={materials.Shirt} skeleton={nodes.BaseHuman_1.skeleton  }   castShadow  > <meshStandardMaterial color={shirtColor} /> </skinnedMesh>
             <skinnedMesh name="BaseHuman_2" geometry={nodes.BaseHuman_2.geometry} material={materials.Pants} skeleton={nodes.BaseHuman_2.skeleton  }   castShadow  > 
               <meshStandardMaterial color={pantsColor} /> </skinnedMesh>

@@ -81,13 +81,16 @@ export const HangarExp = () => {
       <Environment preset="city" />
       <ambientLight intensity={0.25} />
       <OrbitControls />
-      <mesh position={[0, -0.001, 0]} rotation={[0, 0, 0]} 
+      <mesh position={[0, -13.001, 0]} 
+       rotation={[-Math.PI / 2, 0, 0]} 
         onClick={(e) => UpdatePlayerPosition(e.point)}
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}>
-        {/* <planeGeometry args={[10, 10]} />\ */}
-      <Hangar />
-        {/* <meshStandardMaterial color="blue" /> */}
+        <planeGeometry args={[1000, 1000 ]} />
+        <meshStandardMaterial color="blue" />
+      </mesh>
+          <mesh position={[0, 1.1, 0]} rotation={[0, 0, 0]}> 
+      <Hangar  />
       </mesh>
 
       {Object.keys(players).map((key) => {
@@ -102,6 +105,7 @@ export const HangarExp = () => {
             skinColor={player.skinColor} 
             shirtColor={player.shirtColor} 
             pantsColor={player.pantColor} 
+            // id={key}
           />
           {key === 'CXJiEEnwnI820BLLJjT0wJJg21sU4bvfvdD6s5i-MoU' ? (
             <Text
