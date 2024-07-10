@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import LoomApp from './LoomApp' 
+import HangarApp from './HangarApp'
 import {ArweaveWalletKit} from 'arweave-wallet-kit'
 import Home from './pages/Home'
 import { createBrowserRouter , RouterProvider } from 'react-router-dom'
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/loom",
+    element: <LoomApp />,
+  },
+  {
+    path: "/hangar",
+    element: <HangarApp />,
+  },
+  {
+    path: "/custom",
     element: <App />,
   },
   {
@@ -46,6 +56,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    >
       <RouterProvider  router={router}/>
     </ArweaveWalletKit>
-  </React.StrictMode>
-  </AuthProvider>,
+  </React.StrictMode></AuthProvider>,
 )

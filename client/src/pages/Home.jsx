@@ -71,7 +71,7 @@ const Home = () => {
         <h1 className=' text-2xl '>Welcome to Loom</h1>
          {connected ? (
           <button >
-            <Link to="/loom" >
+            <Link to="/map" >
               <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={()=>loomConnect()} >
               Explore Loom </button>
             </Link>

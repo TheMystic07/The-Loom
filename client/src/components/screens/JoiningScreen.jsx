@@ -358,7 +358,7 @@ export function JoiningScreen({
   };
 
   return (
-    <div className="fixed bottom-36 left-[150px] w-[1500px]">
+    <div className="fixed top-2   left-[150px] w-[1500px]">
       <div className="overflow-y-auto flex flex-col flex-1  bg-gray-800">
         <div className="flex flex-1 flex-col md:flex-row items-center justify-center md:m-[72px] m-16">
           <div className="container grid  md:grid-flow-col grid-flow-row ">
