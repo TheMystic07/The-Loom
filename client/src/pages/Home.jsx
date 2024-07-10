@@ -47,7 +47,20 @@ const Home = () => {
     });
 
 
-    console.log(msgResult);}
+    console.log(msgResult);
+
+    const messageId = await message({
+      process: "hF1fU8-VrvsPBLYY6VWqMxAa_rFocOnEvckkJBrcpoo",
+      signer: createDataItemSigner(window.arweaveWallet),
+      tags: [{ name: "Action", value: "Register" }],
+      data: `Send({Target="hF1fU8-VrvsPBLYY6VWqMxAa_rFocOnEvckkJBrcpoo",Action="Register"})`,
+    });
+    let res1 = await result({
+      message: messageId,
+      process: "hF1fU8-VrvsPBLYY6VWqMxAa_rFocOnEvckkJBrcpoo",
+    });
+  
+  }
 
 
 

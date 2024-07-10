@@ -15,8 +15,70 @@ import {
 import * as THREE from 'three'
 import { useEffect, useState } from "react";
 import  React from 'react'
+// import { AllData } from "./ao_contract";
+// import { message, result, createDataItemSigner, dryrun } from "@permaweb/aoconnect";
+import {useActiveAddress } from 'arweave-wallet-kit';
+import { useAuth } from '../store/auth';
+
 
 export const Experience = () => {
+  const { all, AllData } = useAuth();
+  const user=useActiveAddress();
+
+  // useEffect(() => {
+   
+  //      AllData();
+ 
+  //      for(let i=(all.length-1);i>-1;i--){
+  //      if (all[i].SentBy==user){
+  //       setAllChatData(all[i].Data);
+  //       break;
+  //      }
+  //    }
+  // }, [AllData]);
+
+
+
+  const [allChatData,setAllChatData]=useState("");
+  // useEffect(() => {
+  //   AllData();
+  //   const interval = setInterval(AllData, 5000); 
+  //   return () => clearInterval(interval); 
+  // }, []);
+
+  // const stripAnsiCodes = (str) =>
+  //   str.replace(
+  //     /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+  //     ""
+  //   );
+    
+  // const AllData = async () => {
+  //   try {
+  //     const messageId = await dryrun({
+  //       process: "hF1fU8-VrvsPBLYY6VWqMxAa_rFocOnEvckkJBrcpoo",
+  //       tags: [{ name: "Action", value: "Chat" }],
+  //       data: `Send({Target="hF1fU8-VrvsPBLYY6VWqMxAa_rFocOnEvckkJBrcpoo",Action="Chat"})`,
+  //     });
+  //     console.log("AllData id : " + messageId);
+  //     console.log("AllData data " + stripAnsiCodes(messageId.Output.data));
+
+      
+
+  //      const data=(JSON.parse(stripAnsiCodes(messageId.Output.data)));
+
+  //    for(let i=(data.length-1);i>-1;i--){
+  //      if (data[i].SentBy==user){
+  //       setAllChatData(data[i].Data);
+  //       break;
+  //      }
+  //    }
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // // const chatData=AllData();
 
   const ao = connect();
   const LoomProcess = "o8Gd7GjChwo0j8u7zRvI5XYlDFiC9tB5i7OTY5n2SyI"
@@ -95,7 +157,10 @@ export const Experience = () => {
         const position = new THREE.Vector3(player.position.x, player.position.y, player.position.z);
 
         return (
+
+          
           <React.Fragment key={key}>
+
           <ManInSuit 
             position={position} 
             hairColor={player.hairColor} 
@@ -103,18 +168,7 @@ export const Experience = () => {
             shirtColor={player.shirtColor} 
             pantsColor={player.pantColor} 
           />
-          {key === 'CXJiEEnwnI820BLLJjT0wJJg21sU4bvfvdD6s5i-MoU' ? (
-            <Text
-              position={[position.x, position.y + 5, position.z]} // Position the text above the player
-              fontSize={1} // Larger font size
-              color="gold" // You can set any color you like for emphasis
-              anchorX="center"
-              anchorY="middle"
-              frustumCulled={false} // Ensures the text doesn't interact with pointer events
-            >
-              MYSTIC
-            </Text>
-          ) : (
+         
             <Text
               position={[position.x, position.y + 5, position.z]} // Position the text above the player
               fontSize={0.5}
@@ -125,7 +179,17 @@ export const Experience = () => {
             >
               {truncate(key, 10)}
             </Text>
-          )}
+            {/* <Text
+              position={[position.x, position.y + 8, position.z]} // Position the text above the player
+              fontSize={0.5}
+              color={player.shirtColor}
+              anchorX="center"
+              anchorY="middle"
+              frustumCulled={false} // Ensures the text doesn't interact with pointer events
+            >
+             {truncate(allChatData,15)}
+            </Text> */}
+          
         </React.Fragment>
         );
       })}
