@@ -105,7 +105,7 @@ export const HangarExp = () => {
             skinColor={player.skinColor} 
             shirtColor={player.shirtColor} 
             pantsColor={player.pantColor} 
-            // id={key}
+            id={key}
           />
           {key === 'CXJiEEnwnI820BLLJjT0wJJg21sU4bvfvdD6s5i-MoU' ? (
             <Text
