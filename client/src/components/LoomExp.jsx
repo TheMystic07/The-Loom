@@ -16,7 +16,7 @@ import * as THREE from 'three'
 import { useEffect, useState } from "react";
 import  React from 'react'
 
-export const Experience = () => {
+export const LoomExp = () => {
 
   const ao = connect();
   const LoomProcess = "o8Gd7GjChwo0j8u7zRvI5XYlDFiC9tB5i7OTY5n2SyI"
