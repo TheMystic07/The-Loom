@@ -1,6 +1,13 @@
 import { Canvas  , extend, useThree, useFrame} from "@react-three/fiber";
 import { Experience } from "./components/Experience";
-import { ContactShadows } from "@react-three/drei";
+import ChatBox from "./components/ChatRoom";
+import VideoChat from "./components/VideoChat";
+import Vid from "./components/Vid";
+
+import { ContactShadows, ScrollControls } from "@react-three/drei";
+import {HangarExp} from "./components/HangarExp";
+import { Link, json } from 'react-router-dom'
+
 // import { Canvas,  } from "react-three-fiber";
 import {
   CubeTextureLoader,
@@ -9,45 +16,35 @@ import {
   // RGBFormat,
   // LinearMipmapLinearFilter
 } from "three";
+import { UI } from "./components/UI";
+// import  Hangar from "./components/Hangar";
 
 
 function App() {
 
   
 
-  function SkyBox() {
-    const { scene } = useThree();
-    const loader = new CubeTextureLoader();
-    // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
-    const texture = loader.load([
-      "/1.jpg",
-      "/2.jpg",
-      "/3.jpg",
-      "/4.jpg",
-      "/5.jpg",
-      "/6.jpg"
-    ]);
   
-    // Set the scene background property to the resulting texture.
-    scene.background = texture;
-    return null;
-  }
-
-
-
 
 
 
 
   return (
     <>
+     <div>
+     
+     <ChatBox /></div>
+     <div><Vid/></div>
+  
     {/* <button onClick={getActivePlayers}>Get Active Players</button> */}
-    <Canvas shadows camera={{ position: [8,20,8], fov: 45 }}>
-      <ContactShadows blur={2}/>
+    <Canvas shadows camera={{ position: [8,20,8], fov: 30 }}>
       <color attach="background" args={["#ececec"]} />
+      <ScrollControls pages={4}>
       <Experience />
+      </ScrollControls>
       {/* <SkyBox /> */}
     </Canvas>
+    <UI/>
     </>
   );
 }

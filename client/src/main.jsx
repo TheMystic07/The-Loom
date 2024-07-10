@@ -4,7 +4,8 @@ import App from './App'
 import {ArweaveWalletKit} from 'arweave-wallet-kit'
 import Home from './pages/Home'
 import { createBrowserRouter , RouterProvider } from 'react-router-dom'
-
+import { AuthProvider } from './store/auth.jsx'
+import Vid from './components/Vid.jsx'
 import './index.css'
 import TestingAoTemp from './pages/TestingAoTemp'
 
@@ -16,11 +17,16 @@ const router = createBrowserRouter([
   {
     path: "/loom",
     element: <App />,
+  },
+  {
+    path: "/videChat",
+    element: <Vid />,
   }
 ]);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <AuthProvider>
   <React.StrictMode>
     
    <ArweaveWalletKit
@@ -33,5 +39,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    >
       <RouterProvider  router={router}/>
     </ArweaveWalletKit>
-  </React.StrictMode>,
+  </React.StrictMode></AuthProvider>,
 )
