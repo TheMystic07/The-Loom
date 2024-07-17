@@ -127,7 +127,18 @@ export const Experience = () => {
       }
     }
   };
-
+  const ResetPlayerPosition = async () => {
+    const addr = await window.arweaveWallet.getActiveAddress();
+    const m_id = await message({
+      process: LoomProcess,
+      signer: createDataItemSigner(window.arweaveWallet),
+      tags: [{ name: "Action", value: "ResetPlayerPosition" }],
+    });
+    const res = await ao.result({
+      process: LoomProcess,
+      message: m_id,
+    });
+  };
   const getActivePlayers = async () => {
     const addr = await window.arweaveWallet.getActiveAddress();
     const res = await dryrun({
@@ -184,6 +195,7 @@ export const Experience = () => {
   }, []);
 
   useEffect(() => {
+    ResetPlayerPosition();
     getMapData();
   }, []);
 

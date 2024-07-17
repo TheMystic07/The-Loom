@@ -32,7 +32,7 @@ function App() {
   return (
     <>
      <div>
-     
+     <button className="absolute z-20 top-3 right-3  bg-blue-500 rounded-xl"><Link to="/">Back</Link></button>
      <ChatBox /></div>
      <div><Vid/></div>
   

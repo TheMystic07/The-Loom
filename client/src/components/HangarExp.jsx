@@ -1,6 +1,6 @@
 import { Environment, OrbitControls, useCursor, Text } from "@react-three/drei";
 import { ManInSuit } from "./ManInSuit";
-import {Hangar} from './Hangar'
+import {HangarNew} from './HangarNew'
 import {
   result,
   results,
@@ -61,6 +61,22 @@ export const HangarExp = () => {
     console.log(tasksJson);
   }
 
+  const ResetPlayerPosition = async () => {
+    const addr = await window.arweaveWallet.getActiveAddress();
+    const m_id = await message({
+      process: LoomProcess,
+      signer: createDataItemSigner(window.arweaveWallet),
+      tags: [{ name: "Action", value: "ResetPlayerPosition" }],
+    });
+    const res = await ao.result({
+      process: LoomProcess,
+      message: m_id,
+    });
+  };
+
+  useEffect(()=>{
+    ResetPlayerPosition();
+      },[])
   useEffect(() => {
     const interval = setInterval(() => {
       getActivePlayers();
@@ -75,22 +91,23 @@ export const HangarExp = () => {
   const truncate = (str, maxLength) => {
     return str.length > maxLength ? str.substring(0, maxLength) + "..." : str;
   };
-
+  // var camera = new THREE.PerspectiveCamera( 55, 1, 0.01,  10000 );
   return (
     <>
       <Environment preset="city" />
       <ambientLight intensity={0.25} />
       <OrbitControls />
-      <mesh position={[0, -13.001, 0]} 
+      <mesh position={[0, -1.01, 0]} 
        rotation={[-Math.PI / 2, 0, 0]} 
         onClick={(e) => UpdatePlayerPosition(e.point)}
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}>
-        <planeGeometry args={[1000, 1000 ]} />
-        <meshStandardMaterial color="blue" />
+        <planeGeometry args={[10000, 10000 ]}  position={[10000 , 0 , 10000]} />
+        <meshStandardMaterial color="blue" transparent opacity={0}  />
       </mesh>
           <mesh position={[0, 1.1, 0]} rotation={[0, 0, 0]}> 
-      <Hangar  />
+          
+      <HangarNew  />
       </mesh>
 
       {Object.keys(players).map((key) => {
@@ -105,12 +122,13 @@ export const HangarExp = () => {
             skinColor={player.skinColor} 
             shirtColor={player.shirtColor} 
             pantsColor={player.pantColor} 
+            scale={2}
             id={key}
           />
           {key === 'CXJiEEnwnI820BLLJjT0wJJg21sU4bvfvdD6s5i-MoU' ? (
             <Text
-              position={[position.x, position.y + 5, position.z]} // Position the text above the player
-              fontSize={1} // Larger font size
+              position={[position.x, position.y + 15, position.z]} // Position the text above the player
+              fontSize={2} // Larger font size
               color="gold" // You can set any color you like for emphasis
               anchorX="center"
               anchorY="middle"
@@ -120,8 +138,8 @@ export const HangarExp = () => {
             </Text>
           ) : (
             <Text
-              position={[position.x, position.y + 5, position.z]} // Position the text above the player
-              fontSize={0.5}
+              position={[position.x, position.y + 15, position.z]} // Position the text above the player
+              fontSize={2}
               color={player.shirtColor}
               anchorX="center"
               anchorY="middle"

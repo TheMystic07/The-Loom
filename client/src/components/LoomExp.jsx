@@ -1,6 +1,6 @@
 import { Environment, OrbitControls, useCursor, Text } from "@react-three/drei";
 import { ManInSuit } from "./ManInSuit";
-import {LoomCity} from './LoomCity'
+import {LoomCityNew} from './LoomCityNew'
 import {
   result,
   results,
@@ -54,13 +54,25 @@ export const LoomExp = () => {
         },
       ],
     });
+    
     const { Messages } = res;
     const tasks = Messages[0].Data;
     const tasksJson = JSON.parse(tasks);
     setPlayers(tasksJson);
     console.log(tasksJson);
   }
-
+  const ResetPlayerPosition = async () => {
+    const addr = await window.arweaveWallet.getActiveAddress();
+    const m_id = await message({
+      process: LoomProcess,
+      signer: createDataItemSigner(window.arweaveWallet),
+      tags: [{ name: "Action", value: "ResetPlayerPosition" }],
+    });
+    const res = await ao.result({
+      process: LoomProcess,
+      message: m_id,
+    });
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       getActivePlayers();
@@ -69,6 +81,9 @@ export const LoomExp = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(()=>{
+ResetPlayerPosition();
+  },[])
   const [onFloor, setOnFloor] = useState(false);
   useCursor(onFloor);
 
@@ -86,7 +101,7 @@ export const LoomExp = () => {
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}>
         {/* <planeGeometry args={[10, 10]} />\ */}
-      <LoomCity />
+      <LoomCityNew />
         {/* <meshStandardMaterial color="blue" /> */}
       </mesh>
 

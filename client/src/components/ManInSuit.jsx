@@ -62,9 +62,9 @@ const MOVEMENT_SPEED = 0.062;
       setAnimation("HumanArmature|Man_Idle") ;
 }
 if(id==user){
- state.camera.position.x = group.current.position.x + 18 ;
- state.camera.position.y = group.current.position.y + 18 ;
- state.camera.position.z = group.current.position.z + 18;
+//  state.camera.position.x = group.current.position.x + 40 ;
+ state.camera.position.y = group.current.position.y + 30 ;
+//  state.camera.position.z = group.current.position.z + 4
  state.camera.lookAt(group.current.position); 
 }
   });
